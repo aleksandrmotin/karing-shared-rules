@@ -7,6 +7,8 @@ on:
       - rules.json
       - build.py
       - update_telegram.py
+      - update_registry.py
+      - sources/operator-registry.json
       - .github/workflows/pages.yml
   schedule:
     - cron: '17 3 * * *'
@@ -30,6 +32,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Read upstream registry data
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: GrimbirdUsers/ru-routing-dat
+          ref: main
+          path: _upstream-ru
+          sparse-checkout: data-geosite
+          persist-credentials: false
+      - name: Refresh complete community whitelist category
+        run: python3 update_registry.py --source-dir _upstream-ru
       - name: Build and verify rule sets
         run: |
           python3 build.py

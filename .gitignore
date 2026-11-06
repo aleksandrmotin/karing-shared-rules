@@ -5,3 +5,4 @@ __pycache__/
 migration-plan.json
 verification.json
 backups/
+_upstream-ru/

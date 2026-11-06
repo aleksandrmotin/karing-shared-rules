@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "source_repository": "https://github.com/GrimbirdUsers/ru-routing-dat",
+  "source_revision": "58a4a1e26f10b5c51d143f3b53fb3d1cd3871e33",
+  "source_committed_at": "2026-11-01T00:10:07Z",
+  "checked_at_utc": "2026-11-06T14:07:47.386375+00:00",
+  "category": "category-ru-whitelist",
+  "classification": "community_routing_dataset_not_official_operator_registry",
+  "included_categories": [
+    "2gis",
+    "avito",
+    "category-gov-ru",
+    "category-ru-whitelist",
+    "dzen",
+    "mailru-group",
+    "ok",
+    "okko",
+    "ozon",
+    "ru-analytics",
+    "ru-banks",
+    "ru-cdn",
+    "ru-finance",
+    "ru-marking",
+    "ru-medical",
+    "ru-payments",
+    "ru-retail-extra",
+    "ru-transport",
+    "ru-tv",
+    "ru-whitelist-extended",
+    "rutube",
+    "vk",
+    "wildberries",
+    "wink",
+    "x5",
+    "yandex"
+  ],
+  "rule_count": 737,
+  "personal_priority_exclusions": [
+    {
+      "field": "domain_suffix",
+      "value": "firebaseinstallations.googleapis.com"
+    },
+    {
+      "field": "domain_suffix",
+      "value": "storage.googleapis.com"
+    }
+  ],
+  "mobile_direct_rule_count": 742
+}

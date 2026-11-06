@@ -6,13 +6,15 @@ Edit **rules.json** in this repository. Saving a change to `main` starts GitHub 
 - Direct: https://aleksandrmotin.github.io/karing-shared-rules/direct.json
 - Mobile Direct: https://aleksandrmotin.github.io/karing-shared-rules/mobile-direct.json
 - Mobile Kosmo: https://aleksandrmotin.github.io/karing-shared-rules/mobile-kosmo.json
+- Complete community registry: https://aleksandrmotin.github.io/karing-shared-rules/mobile-registry-direct.json
+- Registry source and freshness: https://aleksandrmotin.github.io/karing-shared-rules/mobile-registry-status.json
 - Telegram: https://aleksandrmotin.github.io/karing-shared-rules/telegram.json
 - Telegram source check: https://aleksandrmotin.github.io/karing-shared-rules/telegram-status.json
 - Deployment status: https://github.com/aleksandrmotin/karing-shared-rules/actions
 
 ## Edit rules
 
-Schema version 2 has four sections: `vpn`, `direct`, `mobile_direct` and `mobile_kosmo`. They accept `domain` (exact names), `domain_suffix`, and `ip_cidr` lists. `direct` retains the complete original manual Direct list for existing clients and Wi-Fi. The two mobile sections partition that list: every entry must occur in exactly one mobile section. The builder rejects omissions and duplicate assignments. For a new suffix covering both the root domain and its subdomains, omit the leading dot. Existing leading dots were retained to preserve the original matches. Do not put VPN subscription URLs, passwords or server credentials in this public repository.
+Schema version 2 has four personal sections: `vpn`, `direct`, `mobile_direct` and `mobile_kosmo`. They accept `domain` (exact names), `domain_suffix`, and `ip_cidr` lists. `direct` retains the complete original manual Direct list for existing clients and Wi-Fi. The two mobile sections partition that list: every entry must occur in exactly one mobile section. The builder rejects omissions and duplicate assignments. The published mobile-direct.json also incorporates the maintained community registry described below. For a new suffix covering both the root domain and its subdomains, omit the leading dot. Existing leading dots were retained to preserve the original matches. Do not put VPN subscription URLs, passwords or server credentials in this public repository.
 
 After editing locally:
 
@@ -42,9 +44,17 @@ Set **Settings → Diversion → Rule Set → Update interval** to 1 hour on eac
 
 ## Mobile split and readable group names
 
+### Maintained registry including service dependencies
+
+The full [category-ru-whitelist](https://github.com/GrimbirdUsers/ru-routing-dat/blob/main/data-geosite/category-ru-whitelist) from [GrimbirdUsers/ru-routing-dat](https://github.com/GrimbirdUsers/ru-routing-dat) is converted recursively, including every referenced category. This is an upstream-maintained community routing dataset, not an official government/operator export or a promise that every entry works on every network. The initial snapshot contains 737 unique rules from 26 source files, including Wildberries, Ozon, Yandex, Okko, service APIs and dedicated CDN suffixes. GeoSite `domain:` rules become sing-box `domain_suffix` (root and all subdomains); `full:` remains an exact host. Broad .ru/.com catch-alls are not imported, and upstream executable code is never run.
+
+Actions fetches the current upstream data on every daily/push/manual deployment. `update_registry.py` validates the full category and writes a source snapshot with revision and timestamps. A failed checkout, unsupported rule, malformed hostname or failed build stops deployment; the previously published site remains in place. Membership and technical coverage are maintained by the upstream project, independently of the personal exceptions in rules.json.
+
+The complete converted category is published as mobile-registry-direct.json. The ready-to-use mobile-direct.json merges it with personal mobile Direct choices, excluding upstream entries that overlap explicit Force VPN or Mobile Kosmo exceptions. If a broad CDN suffix overlaps a protected hostname, that whole upstream suffix is omitted from the merged file; the source registry itself remains intact. This preserves personal priorities even before the client order is corrected. The exclusions and source revision are visible in mobile-registry-status.json. Keep Mobile Kosmo above Mobile Direct in Karing.
+
 The mobile lists are personal routing choices, not an official machine-readable government allowlist. The [operator's published service list](https://moscow.megafon.ru/offline_services/) names Yandex and Okko, supporting direct routing for those services. It does not establish an exhaustive set of permitted technical domains. `yclients.com` remains Direct to preserve the supplied choice, with mobile availability unconfirmed. The owner explicitly assigned the other marked exceptions to Kosmo, including technical domains related to S7 and 1C; listing a service does not prove every CDN or hosted endpoint works directly.
 
-For the iPhone migration, import only [`setup/karing-mobile-split-import.json`](setup/karing-mobile-split-import.json). It adds two initially unassigned cellular-only groups using AND. Verify the fields, place them after the existing Force VPN pair but before the manual Direct group, then assign Mobile Direct to Direct and Mobile Kosmo to the existing Kosmo allowlist proxy group. Change the old manual Direct group to Wi-Fi only, using AND and Network Type `wifi`, and rename it Wi-Fi Direct. Keep the existing direct.json and vpn.json URLs unchanged. The Mac does not need this migration.
+For the iPhone migration, import only [`setup/karing-mobile-split-import.json`](setup/karing-mobile-split-import.json). It adds two initially unassigned cellular-only groups using AND. Verify the fields and place them after the existing Force VPN pair, with Mobile Kosmo before Mobile Direct and both before the manual Wi-Fi Direct group. Assign Mobile Direct to Direct and Mobile Kosmo to the existing Kosmo allowlist proxy group. The Mobile Direct URL already contains the complete registry; a separate third group is unnecessary. Change the old manual Direct group to Wi-Fi only, using AND and Network Type `wifi`, and rename it Wi-Fi Direct. Keep the existing direct.json and vpn.json URLs unchanged. The Mac does not need this migration.
 
 Rename the proxy group through Custom Auto Select, then explicitly reselect it in every affected routing group; a name change alone is not evidence that all proxy references were preserved. Suggested proxy name: `Белые списки Космо`.
 
