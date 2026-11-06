@@ -46,6 +46,8 @@ For an existing Telegram-specific group, keep OR and its assigned proxy server/g
 
 The client must poll this URL (suggested Rule Set interval: 1 hour). Refresh while iOS is suspended or VPN is off is not guaranteed. This updates network membership only; it does not change proxy servers, credentials or device-specific group assignments.
 
+GitHub [automatically disables schedules in public repositories after 60 days without repository activity](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/disable-and-enable-workflows). If the status timestamp becomes stale, check Actions and re-enable the workflow if necessary. Successful past deployments do not guarantee that a schedule remains enabled indefinitely.
+
 The setup import is an initial configuration snapshot. Reimporting it after device-specific customizations may overwrite their settings; edit the existing group instead.
 
 Validate Telegram locally with `python3 update_telegram.py --check`. To refresh it, run `python3 update_telegram.py`; internet access is required.
