@@ -9,7 +9,8 @@
         "openai.com",
         "chatgpt.com",
         "allsports.jp",
-        "discord-attachments-uploads-prd.storage.googleapis.com"
+        "discord-attachments-uploads-prd.storage.googleapis.com",
+        "sync-check.karing.example"
       ]
     }
   ]
