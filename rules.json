@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "vpn": {
     "domain": [
       "youtube.com",
@@ -34,6 +34,40 @@
     "domain": [
       "okko.tv",
       "okko.sport",
+      "svo.aero",
+      "pskb.com",
+      "braind.agency"
+    ]
+  },
+  "mobile_direct": {
+    "domain_suffix": [
+      ".yandex.ru",
+      ".okko.tv",
+      ".yclients.com",
+      ".yandex.net",
+      ".ynison.music.yandex.net"
+    ],
+    "domain": [
+      "okko.tv",
+      "okko.sport"
+    ]
+  },
+  "mobile_kosmo": {
+    "domain_suffix": [
+      ".s7cdn.online",
+      ".braind.agency",
+      ".app-analytics-services.com",
+      ".googleapis.com",
+      ".1cfresh.com",
+      ".zoom.us",
+      ".mymeet.ai",
+      ".svo.aero",
+      ".imshop.io",
+      ".spitamenbank.com",
+      ".sign.me",
+      "sign.me"
+    ],
+    "domain": [
       "svo.aero",
       "pskb.com",
       "braind.agency"

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build two sing-box source rule sets from one editable, credential-free file."""
+"""Build shared and mobile-specific rule sets from a credential-free source."""
 import argparse
 import ipaddress
 import json
@@ -8,13 +8,18 @@ import re
 
 ROOT = pathlib.Path(__file__).resolve().parent
 FIELDS = {"domain", "domain_suffix", "ip_cidr"}
+SECTIONS = ("direct", "vpn", "mobile_direct", "mobile_kosmo")
+
+
+def entries(section):
+    return {(field, value) for field, values in section.items() for value in values}
 
 
 def load_source():
     data = json.loads((ROOT / "rules.json").read_text())
-    if set(data) != {"schema_version", "direct", "vpn"} or data["schema_version"] != 1:
-        raise ValueError("Expected schema_version=1, direct and vpn only")
-    for name in ("direct", "vpn"):
+    if set(data) != {"schema_version", *SECTIONS} or data["schema_version"] != 2:
+        raise ValueError("Expected schema_version=2 and direct/vpn/mobile_direct/mobile_kosmo")
+    for name in SECTIONS:
         section = data[name]
         if not isinstance(section, dict) or set(section) - FIELDS:
             raise ValueError(f"{name}: only domain, domain_suffix and ip_cidr are allowed")
@@ -35,6 +40,12 @@ def load_source():
                         for label in host.split(".")
                     ):
                         raise ValueError(f"{name}.{field}: invalid domain: {value!r}")
+    mobile_direct = entries(data["mobile_direct"])
+    mobile_kosmo = entries(data["mobile_kosmo"])
+    if mobile_direct & mobile_kosmo:
+        raise ValueError("Mobile Direct and Mobile Kosmo contain the same entry")
+    if mobile_direct | mobile_kosmo != entries(data["direct"]):
+        raise ValueError("Every manual Direct entry must have exactly one mobile destination")
     return data
 
 
@@ -43,12 +54,12 @@ def main():
     parser.add_argument("--check", action="store_true", help="Check generated files without changing them")
     args = parser.parse_args()
     source = load_source()
-    for name in ("direct", "vpn"):
+    for name in SECTIONS:
         # Separate rules preserve OR semantics between different matcher types.
         rules = [{field: values} for field, values in source[name].items() if values]
         result = {"version": 1, "rules": rules}
         content = json.dumps(result, ensure_ascii=False, indent=2) + "\n"
-        destination = ROOT / "dist" / f"{name}.json"
+        destination = ROOT / "dist" / f"{name.replace('_', '-')}.json"
         if args.check:
             if not destination.exists() or destination.read_text() != content:
                 raise SystemExit(f"Outdated generated file: {destination}")

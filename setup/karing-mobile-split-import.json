@@ -1,0 +1,20 @@
+{
+  "rules": [
+    {
+      "outbound": "",
+      "name": "Mobile Direct",
+      "switch": true,
+      "or": false,
+      "network_type": ["cellular"],
+      "rule_set": ["https://aleksandrmotin.github.io/karing-shared-rules/mobile-direct.json"]
+    },
+    {
+      "outbound": "",
+      "name": "Mobile Kosmo",
+      "switch": true,
+      "or": false,
+      "network_type": ["cellular"],
+      "rule_set": ["https://aleksandrmotin.github.io/karing-shared-rules/mobile-kosmo.json"]
+    }
+  ]
+}

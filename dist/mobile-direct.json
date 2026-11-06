@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "domain_suffix": [
+        ".yandex.ru",
+        ".okko.tv",
+        ".yclients.com",
+        ".yandex.net",
+        ".ynison.music.yandex.net"
+      ]
+    },
+    {
+      "domain": [
+        "okko.tv",
+        "okko.sport"
+      ]
+    }
+  ]
+}

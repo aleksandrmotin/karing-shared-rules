@@ -1,16 +1,18 @@
 # Shared Karing rules
 
-Edit **rules.json** in this repository. Saving a change to `main` starts GitHub Actions, validates the source, generates two sing-box Rule Sets and publishes only `dist/` to GitHub Pages.
+Edit **rules.json** in this repository. Saving a change to `main` starts GitHub Actions, validates the source, generates shared and mobile-specific sing-box Rule Sets and publishes only `dist/` to GitHub Pages.
 
 - VPN: https://aleksandrmotin.github.io/karing-shared-rules/vpn.json
 - Direct: https://aleksandrmotin.github.io/karing-shared-rules/direct.json
+- Mobile Direct: https://aleksandrmotin.github.io/karing-shared-rules/mobile-direct.json
+- Mobile Kosmo: https://aleksandrmotin.github.io/karing-shared-rules/mobile-kosmo.json
 - Telegram: https://aleksandrmotin.github.io/karing-shared-rules/telegram.json
 - Telegram source check: https://aleksandrmotin.github.io/karing-shared-rules/telegram-status.json
 - Deployment status: https://github.com/aleksandrmotin/karing-shared-rules/actions
 
 ## Edit rules
 
-`vpn` and `direct` accept `domain` (exact names), `domain_suffix`, and `ip_cidr` lists. For a new suffix covering both the root domain and its subdomains, omit the leading dot. Existing leading dots were retained to preserve the original matches. Do not put VPN subscription URLs, passwords or server credentials in this public repository.
+Schema version 2 has four sections: `vpn`, `direct`, `mobile_direct` and `mobile_kosmo`. They accept `domain` (exact names), `domain_suffix`, and `ip_cidr` lists. `direct` retains the complete original manual Direct list for existing clients and Wi-Fi. The two mobile sections partition that list: every entry must occur in exactly one mobile section. The builder rejects omissions and duplicate assignments. For a new suffix covering both the root domain and its subdomains, omit the leading dot. Existing leading dots were retained to preserve the original matches. Do not put VPN subscription URLs, passwords or server credentials in this public repository.
 
 After editing locally:
 
@@ -37,6 +39,18 @@ In the existing custom routing groups, replace inline matchers with the correspo
 The VPN exception for a specific storage.googleapis.com hostname must remain above the broader direct .googleapis.com suffix. These remote files contain manual overrides only; existing built-in service groups are retained on each device. VPN providers and account settings remain device-specific.
 
 Set **Settings → Diversion → Rule Set → Update interval** to 1 hour on each device. This is periodic polling, not instant push delivery; delivery while iOS is suspended or VPN is off must be verified separately. Check rule-set download and matches in Karing before removing the inline copies.
+
+## Mobile split and readable group names
+
+The mobile lists are personal routing choices, not an official machine-readable government allowlist. The [operator's published service list](https://moscow.megafon.ru/offline_services/) names Yandex and Okko, supporting direct routing for those services. It does not establish an exhaustive set of permitted technical domains. `yclients.com` remains Direct to preserve the supplied choice, with mobile availability unconfirmed. The owner explicitly assigned the other marked exceptions to Kosmo, including technical domains related to S7 and 1C; listing a service does not prove every CDN or hosted endpoint works directly.
+
+For the iPhone migration, import only [`setup/karing-mobile-split-import.json`](setup/karing-mobile-split-import.json). It adds two initially unassigned cellular-only groups using AND. Verify the fields, place them after the existing Force VPN pair but before the manual Direct group, then assign Mobile Direct to Direct and Mobile Kosmo to the existing Kosmo allowlist proxy group. Change the old manual Direct group to Wi-Fi only, using AND and Network Type `wifi`, and rename it Wi-Fi Direct. Keep the existing direct.json and vpn.json URLs unchanged. The Mac does not need this migration.
+
+Rename the proxy group through Custom Auto Select, then explicitly reselect it in every affected routing group; a name change alone is not evidence that all proxy references were preserved. Suggested proxy name: `Белые списки Космо`.
+
+Suggested routing names: `Telegram via Kosmo`, `Mobile Force VPN`, `Force VPN`, `Mobile Direct`, `Mobile Kosmo`, `Wi-Fi Direct`, `Mobile VPN Services`, `Mobile Microsoft`, `Mobile Russia Direct`, `Mobile Default VPN`. Preserve priority: Telegram first, the Force VPN pair before the broad manual Direct/Kosmo exceptions, and the regional Direct rule before the final cellular fallback.
+
+The former Telegram service group can be set to None after confirming that the first Telegram Kosmo group includes the remote Telegram list and built-in Telegram matchers and works on both networks. Keep the other built-in service groups and their order. Import files cannot preserve arbitrary proxy-group assignments, so do not reimport the original 18-group snapshot for this migration.
 
 ## Telegram updates
 

@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "domain_suffix": [
+        ".s7cdn.online",
+        ".braind.agency",
+        ".app-analytics-services.com",
+        ".googleapis.com",
+        ".1cfresh.com",
+        ".zoom.us",
+        ".mymeet.ai",
+        ".svo.aero",
+        ".imshop.io",
+        ".spitamenbank.com",
+        ".sign.me",
+        "sign.me"
+      ]
+    },
+    {
+      "domain": [
+        "svo.aero",
+        "pskb.com",
+        "braind.agency"
+      ]
+    }
+  ]
+}
