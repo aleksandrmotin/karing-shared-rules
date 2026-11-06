@@ -1,0 +1,193 @@
+{
+  "rules": [
+    {
+      "outbound": "currentSelected",
+      "name": "Моё",
+      "switch": true,
+      "or": true,
+      "rule_set": [
+        "https://aleksandrmotin.github.io/karing-shared-rules/vpn.json"
+      ]
+    },
+    {
+      "outbound": "direct",
+      "name": "Direct  Mine",
+      "switch": true,
+      "or": true,
+      "rule_set": [
+        "https://aleksandrmotin.github.io/karing-shared-rules/direct.json"
+      ]
+    },
+    {
+      "outbound": "direct",
+      "name": "🍎 Apple",
+      "switch": true,
+      "or": true,
+      "rule_set_build_in": [
+        "geosite:apple",
+        "geosite:apple@ads",
+        "geosite:apple-dev",
+        "geosite:apple-pki",
+        "geosite:apple-update"
+      ]
+    },
+    {
+      "outbound": "currentSelected",
+      "name": "📹 YouTube",
+      "switch": true,
+      "or": true,
+      "rule_set_build_in": [
+        "geosite:youtube"
+      ],
+      "package": [
+        "com.google.android.youtube"
+      ]
+    },
+    {
+      "outbound": "currentSelected",
+      "name": "♊️ Google Gemini",
+      "switch": true,
+      "or": true,
+      "rule_set_build_in": [
+        "acl:Gemini"
+      ]
+    },
+    {
+      "outbound": "currentSelected",
+      "name": "🌏 Google",
+      "switch": true,
+      "or": true,
+      "rule_set_build_in": [
+        "geosite:google",
+        "geoip:google"
+      ]
+    },
+    {
+      "outbound": "currentSelected",
+      "name": "🎧 TikTok",
+      "switch": true,
+      "or": true,
+      "rule_set_build_in": [
+        "geosite:tiktok"
+      ]
+    },
+    {
+      "outbound": "currentSelected",
+      "name": "📸 Instagram",
+      "switch": true,
+      "or": true,
+      "rule_set_build_in": [
+        "geosite:instagram"
+      ]
+    },
+    {
+      "outbound": "currentSelected",
+      "name": "📲 Discord",
+      "switch": true,
+      "or": true,
+      "rule_set_build_in": [
+        "geosite:discord",
+        "acl:Discord"
+      ]
+    },
+    {
+      "outbound": "currentSelected",
+      "name": "📲 WhatsApp",
+      "switch": true,
+      "or": true,
+      "rule_set_build_in": [
+        "geosite:whatsapp",
+        "acl:Whatsapp"
+      ],
+      "package": [
+        "com.whatapp"
+      ]
+    },
+    {
+      "outbound": "currentSelected",
+      "name": "📲 Telegram",
+      "switch": true,
+      "or": true,
+      "rule_set_build_in": [
+        "geoip:telegram",
+        "geosite:telegram"
+      ],
+      "package": [
+        "org.telegram.messenger.web",
+        "org.telegram.messenger"
+      ]
+    },
+    {
+      "outbound": "currentSelected",
+      "name": "💬 Claude",
+      "switch": true,
+      "or": true,
+      "rule_set_build_in": [
+        "acl:Claude"
+      ]
+    },
+    {
+      "outbound": "currentSelected",
+      "name": "💬 OpenAI",
+      "switch": true,
+      "or": true,
+      "rule_set_build_in": [
+        "geoip:openai",
+        "geosite:openai"
+      ]
+    },
+    {
+      "outbound": "currentSelected",
+      "name": "🐱 GitHub",
+      "switch": true,
+      "or": true,
+      "rule_set_build_in": [
+        "geoip:github",
+        "geosite:github"
+      ]
+    },
+    {
+      "outbound": "currentSelected",
+      "name": "🌏 GFW",
+      "switch": true,
+      "or": true,
+      "rule_set_build_in": [
+        "geoip:blocked@ru",
+        "geoip:blocked-community@ru",
+        "geosite:blocked@ru"
+      ]
+    },
+    {
+      "outbound": "currentSelected",
+      "name": "🌏 Google Play",
+      "switch": true,
+      "or": true,
+      "rule_set_build_in": [
+        "geosite:google-play"
+      ],
+      "package": [
+        "com.android.vending"
+      ]
+    },
+    {
+      "outbound": "direct",
+      "name": "📢 Google FCM",
+      "switch": true,
+      "or": true,
+      "rule_set_build_in": [
+        "acl:GoogleFCM"
+      ]
+    },
+    {
+      "outbound": "currentSelected",
+      "name": "Ⓜ️ Microsoft",
+      "switch": true,
+      "or": true,
+      "rule_set_build_in": [
+        "geosite:microsoft",
+        "geosite:microsoft-dev",
+        "geosite:microsoft-pki"
+      ]
+    }
+  ]
+}
