@@ -59,7 +59,7 @@ jobs:
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5
   archive:
     name: Archive verified Telegram source monthly
-    needs: build
+    needs: deploy
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
