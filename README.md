@@ -4,6 +4,8 @@ Edit **rules.json** in this repository. Saving a change to `main` starts GitHub 
 
 - VPN: https://aleksandrmotin.github.io/karing-shared-rules/vpn.json
 - Direct: https://aleksandrmotin.github.io/karing-shared-rules/direct.json
+- Telegram: https://aleksandrmotin.github.io/karing-shared-rules/telegram.json
+- Telegram source check: https://aleksandrmotin.github.io/karing-shared-rules/telegram-status.json
 - Deployment status: https://github.com/aleksandrmotin/karing-shared-rules/actions
 
 ## Edit rules
@@ -36,7 +38,19 @@ The VPN exception for a specific storage.googleapis.com hostname must remain abo
 
 Set **Settings → Diversion → Rule Set → Update interval** to 1 hour on each device. This is periodic polling, not instant push delivery; delivery while iOS is suspended or VPN is off must be verified separately. Check rule-set download and matches in Karing before removing the inline copies.
 
-## Validate
+## Telegram updates
+
+Actions downloads the [official Telegram networks](https://core.telegram.org/resources/cidr.txt) on every deployment and daily at approximately 03:17 UTC. GitHub may delay scheduled runs. The updater validates CIDRs, both address families, duplicates and unexpectedly broad networks. A download or validation failure stops deployment and leaves the previously published site in place. `telegram-status.json` reports the last successful source check and the checksum of the published rule set. Check Actions for failures; account notification preferences are not changed by this repository.
+
+For an existing Telegram-specific group, keep OR and its assigned proxy server/group. Add the telegram.json URL to **Rule Set**, remove the static **IP Cidr** copy, and save. Built-in Telegram matchers can remain. Keep this group ahead of broader rules when Telegram must always use its own proxy group. No network-type condition is needed for a group that applies on both Wi-Fi and cellular.
+
+The client must poll this URL (suggested Rule Set interval: 1 hour). Refresh while iOS is suspended or VPN is off is not guaranteed. This updates network membership only; it does not change proxy servers, credentials or device-specific group assignments.
+
+The setup import is an initial configuration snapshot. Reimporting it after device-specific customizations may overwrite their settings; edit the existing group instead.
+
+Validate Telegram locally with `python3 update_telegram.py --check`. To refresh it, run `python3 update_telegram.py`; internet access is required.
+
+## Rule set validation
 
 Both source files use version 1 of the sing-box source format. The initial lists were compiled with official sing-box 1.13.0 and checked with its native matcher, including precedence and negative-match cases. This does not replace on-device download and refresh testing.
 

@@ -6,7 +6,10 @@ on:
     paths:
       - rules.json
       - build.py
+      - update_telegram.py
       - .github/workflows/pages.yml
+  schedule:
+    - cron: '17 3 * * *'
   workflow_dispatch:
 
 permissions:
@@ -26,6 +29,10 @@ jobs:
         run: |
           python3 build.py
           python3 build.py --check
+      - name: Refresh and verify official Telegram networks
+        run: |
+          python3 update_telegram.py
+          python3 update_telegram.py --check
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload only generated rule sets

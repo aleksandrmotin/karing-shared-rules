@@ -1,0 +1,7 @@
+{
+  "source": "https://core.telegram.org/resources/cidr.txt",
+  "checked_at_utc": "2026-11-06T13:14:11.776273+00:00",
+  "ipv4_networks": 9,
+  "ipv6_networks": 5,
+  "rule_set_sha256": "1bfdac57fda3c19c24513cbf950a7346bf7feb1722fd3b8cb9047f16405d0d53"
+}
