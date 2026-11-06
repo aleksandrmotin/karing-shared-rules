@@ -24,6 +24,8 @@ Editing rules.json in the GitHub web interface is sufficient; Actions rebuilds t
 
 ## Connect in Karing
 
+For initial setup, import [`setup/karing-remote-import.json`](setup/karing-remote-import.json) from the custom-group list (**Diversion Rules → pencil → ⋮ → Import**), keep all 18 groups enabled and confirm. This native Karing import replaces the two manual lists with remote links and retains the other built-in groups. It contains no VPN subscriptions. Apply once on each device, then check group order and downloads. Do not import this setup file as a VPN profile or as a sing-box Rule Set.
+
 In the existing custom routing groups, replace inline matchers with the corresponding URL in **Rule Set**. Keep these groups in this order:
 
 1. VPN list: **Current Selected** (vpn.json).
