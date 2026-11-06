@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "vpn": {
+    "domain": [
+      "youtube.com",
+      "googlevideo.com",
+      "ytimg.com",
+      "openai.com",
+      "chatgpt.com",
+      "allsports.jp",
+      "discord-attachments-uploads-prd.storage.googleapis.com"
+    ]
+  },
+  "direct": {
+    "domain_suffix": [
+      ".s7cdn.online",
+      ".yandex.ru",
+      ".braind.agency",
+      ".app-analytics-services.com",
+      ".googleapis.com",
+      ".okko.tv",
+      ".1cfresh.com",
+      ".zoom.us",
+      ".mymeet.ai",
+      ".svo.aero",
+      ".imshop.io",
+      ".yclients.com",
+      ".spitamenbank.com",
+      ".yandex.net",
+      ".ynison.music.yandex.net",
+      ".sign.me",
+      "sign.me"
+    ],
+    "domain": [
+      "okko.tv",
+      "okko.sport",
+      "svo.aero",
+      "pskb.com",
+      "braind.agency"
+    ]
+  }
+}

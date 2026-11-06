@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "domain": [
+        "youtube.com",
+        "googlevideo.com",
+        "ytimg.com",
+        "openai.com",
+        "chatgpt.com",
+        "allsports.jp",
+        "discord-attachments-uploads-prd.storage.googleapis.com"
+      ]
+    }
+  ]
+}

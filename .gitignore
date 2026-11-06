@@ -1,0 +1,7 @@
+.env
+.env.*
+__pycache__/
+*.srs
+migration-plan.json
+verification.json
+backups/
