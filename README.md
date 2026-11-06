@@ -46,7 +46,9 @@ For an existing Telegram-specific group, keep OR and its assigned proxy server/g
 
 The client must poll this URL (suggested Rule Set interval: 1 hour). Refresh while iOS is suspended or VPN is off is not guaranteed. This updates network membership only; it does not change proxy servers, credentials or device-specific group assignments.
 
-GitHub [automatically disables schedules in public repositories after 60 days without repository activity](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/disable-and-enable-workflows). If the status timestamp becomes stale, check Actions and re-enable the workflow if necessary. Successful past deployments do not guarantee that a schedule remains enabled indefinitely.
+GitHub [automatically disables schedules in public repositories after 60 days without repository activity](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/disable-and-enable-workflows). To maintain activity, the daily workflow also archives a newly downloaded and validated Telegram snapshot in Git every 30 days. Only the archive job has `contents: write`; it uses the built-in repository token, commits only `dist/telegram.json` and `dist/telegram-status.json`, and never force-pushes. No personal access token or manual maintenance commit is required. The saved timestamp changes even when the IP ranges remain the same, recording a real successful source check. GitHub-token pushes do not recursively trigger another workflow.
+
+For verification or recovery, **Run workflow → archive_snapshot** forces a snapshot on demand. Normal scheduled runs archive only when the last snapshot commit is at least 30 days old. If source validation or GitHub operations fail, the workflow reports a failure rather than recording an unverified snapshot. Check the published status timestamp and Actions if updates appear stale.
 
 The setup import is an initial configuration snapshot. Reimporting it after device-specific customizations may overwrite their settings; edit the existing group instead.
 

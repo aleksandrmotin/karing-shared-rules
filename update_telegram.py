@@ -13,6 +13,11 @@ SOURCE = "https://core.telegram.org/resources/cidr.txt"
 MAX_BYTES = 65536
 
 
+def snapshot_due(last_commit_epoch, now_epoch):
+    """Keep a verified source snapshot in Git at least every thirty days."""
+    return last_commit_epoch is None or now_epoch - last_commit_epoch >= 30 * 86400
+
+
 def parse_cidrs(text):
     lines = [line.strip() for line in text.splitlines() if line.strip()]
     if not 5 <= len(lines) <= 256:
